@@ -1,4 +1,6 @@
 '''
+ Original code source: http://rosettacode.org/wiki/24_game/Solve#Python
+
  The 24 Game Player
 
  Given any four digits in the range 1 to 9, which may have repetitions,
@@ -33,8 +35,11 @@ else:
 
 
 def choose4():
-    'four random digits >0 as characters'
-    return [str(random.randint(1,9)) for i in range(4)]
+    'four random digits >0 as characters that can solve to 24'
+    digits = [str(random.randint(1,9)) for i in range(4)]
+    while solve(digits) == '!' :
+        digits = [str(random.randint(1,9)) for i in range(4)]    
+    return digits
 
 def ask4():
     'get four random digits >0 from the player'
@@ -113,7 +118,7 @@ def solve(digits):
                         exp = [ (term if not term.startswith('F(') else term[2])
                                for term in exp ]
                     ans = ' '.join(exp).rstrip()
-                    print ("Solution found:",ans)
+                    #print ("Solution found:",ans)
                     return ans
     print ("No solution found for:", ' '.join(digits))
     return '!'
@@ -129,7 +134,8 @@ def main():
         answer = input("Expression %i: " % trial)
         chk = check(answer, digits)
         if answer == '?':
-            solve(digits)
+            ans = solve(digits)
+            print ans
             answer = '!'
         if answer.lower() == 'q':
             break
