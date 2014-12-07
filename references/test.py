@@ -120,7 +120,7 @@ def solve(digits):
                     ans = ' '.join(exp).rstrip()
                     #print ("Solution found:",ans)
                     return ans
-    print ("No solution found for:", ' '.join(digits))
+    #print ("No solution found for:", ' '.join(digits))
     return '!'
 
 def main():
@@ -135,7 +135,10 @@ def main():
         chk = check(answer, digits)
         if answer == '?':
             ans = solve(digits)
-            print ans
+            if not ans == '!':
+                print (ans)
+            else:
+                print ('No result!')
             answer = '!'
         if answer.lower() == 'q':
             break
