@@ -1,6 +1,6 @@
 import sys, pygame
 import os
-
+pygame.init()
 
 class Game24(object):
 
@@ -13,11 +13,11 @@ class Game24(object):
         self.screenSize = (self.width, self.height) = (1024, 768)
         self.backgroundColor = 252,90,90
         
-        pygame.mixer.pre_init(44100, -16, 1, 512*2)
+        #pygame.mixer.pre_init(44100, -16, 1, 512*2)
         pygame.display.init()
         pygame.font.init()
-        pygame.mixer.init(44100)
-        pygame.mouse.set_visible(False)
+        #pygame.mixer.init(44100)
+        #pygame.mouse.set_visible(False)
         """
         width = pygame.display.Info().current_w
         height = pygame.display.Info().current_h
@@ -28,8 +28,16 @@ class Game24(object):
             screenSize = (800,600)
         """
         #TextureLoader.screenSize =screenSize
-        self.screen = pygame.display.set_mode(self.screenSize, pygame.FULLSCREEN)
+        #self.scnHelp = SceneHelp(screenSize)
+
+        self.screen = pygame.display.set_mode(self.screenSize)
         self.screen.fill(self.backgroundColor)
+
+        btn = pygame.image.load("assets/game_icons/add.png")
+        btnrect = btn.get_rect()
+        self.screen.blit(btn, btnrect)
+
+        
         pygame.display.flip()
         
         """
