@@ -31,7 +31,7 @@ import os
 from pygame.locals import *
 
 pygame.font.init()
-PYGBUTTON_FONT = pygame.font.Font(os.path.join('assets', 'font', 'Roboto-Regular.ttf') , 24)
+PYGBUTTON_FONT = pygame.font.Font(os.path.join('assets', 'font', 'Roboto-Black.ttf') , 24)
 
 
 BLACK     = (  0,   0,   0)
