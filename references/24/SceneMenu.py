@@ -57,6 +57,7 @@ class SceneMenu(SceneBasic):
 		s.bttnQuit = pygbutton.PygButton( (s.width/2-85, s.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
 		s.buttons  = [ s.bttnPlay, s.bttnHelp, s.bttnQuit ]
 		
+		
 	#Update the display and show the menu buttons
 	def updateDisplay(self, s):
 		# if self.currentState == self.STATE_MENU:
@@ -72,22 +73,22 @@ class SceneMenu(SceneBasic):
 		print("SceneMenu::EVENT_SCENE_START")
 		#IcnParticleShootingStar.textureBG = self.myBackground
 
-	def EVENT_CLICK(self):
+	def EVENT_CLICK(self, e):
 		print("SceneMenu::EVENT_CLICK")
-
-		mouseAt = pygame.mouse.get_pos()
+		print(e)
+		#mouseAt = pygame.mouse.get_pos()
 		
 		buttons_event = [
 			[self.bttnPlay, self.EVENT_PLAY],
 			[self.bttnHelp, self.EVENT_HELP],
 			[self.bttnQuit, self.EVENT_QUIT]
 		]
-		print("cliiiiiiiiiiiiicked")
+		
 		for btn,event in buttons_event:
-			if 'click' in btn.handleEvent(event):
-				self.helperRaiseEvent(event)
-				print("cliiiiiiiiiiiiicked")
-				break
+				if 'enter' in btn.handleEvent(e):
+					self.helperRaiseEvent(event)
+					print("cliiiiiiiiiiiiicked")
+					break
 
 	def initBackground(s,screen,size):
 		print("SceneMenu::initBackground")
@@ -109,3 +110,4 @@ class SceneMenu(SceneBasic):
 		# for icn in s.arrShootingStars:
 		# 	icn.drawUpdate(timeElapsed)
 		s.icnMouse.pos = pygame.mouse.get_pos()
+		

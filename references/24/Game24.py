@@ -118,7 +118,7 @@ class Game24(object):
 					if event.type == pygame.QUIT:
 						self.EVENTHDR_QUIT()
 						return
-				self.dicScenes[self.currentState].listenForEvents()
+				self.dicScenes[self.currentState].listenForEvents(eventStack)
 		except :
 			print "CRITICAL ERROR : RESTARTING LOOP loopUpdate"
 			#self.loopUpdate()
@@ -126,6 +126,7 @@ class Game24(object):
 			
 		
 	def registerEvents(self, sceneMenu,sceneGame=None,sceneWin=None, sceneHelp=None):
+		print "Register Events"
 		SceneBasic.registerEvent_sceneChangeStart(self.EVENTHDR_SCENE_CHANGE_START)
 		SceneBasic.registerEvent_sceneChangeEnd(self.EVENTHDR_SCENE_CHANGE_END)
 
@@ -146,7 +147,7 @@ class Game24(object):
 	"""""""""""
 	# Event - Starts the Game Scene
 	def EVENTHDR_SCENE_START_GAME(self):
-		SoundManager.BTTN_START()
+		# SoundManager.BTTN_START()
 		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
 
@@ -157,7 +158,9 @@ class Game24(object):
 	# Event - Quits the game
 	def EVENTHDR_QUIT(self):
 		self.isRunning = False
-		pass		
+		pygame.quit()
+		sys.exit()
+		pass	
   
 	# Event - Starts the Main Menu Scene
 	def EVENTHDR_SCENE_START_MENU(self):

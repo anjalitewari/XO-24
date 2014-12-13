@@ -6,8 +6,9 @@ import pygbutton
 class SceneBasic(object):
 	
 	@staticmethod
-	def helperRaiseEvent(events): 
-		for e in events: e();
+	def helperRaiseEvent(events):
+		print(events);
+		#for e in events: e();
 
 	event_scene_change_start =[]
 	event_scene_change_end =[]
@@ -115,14 +116,24 @@ class SceneBasic(object):
 		pass
 
 	#BasicEvents
-	def listenForEvents(s):
+	def listenForEvents(s, eventStack):
 		mousePressed = pygame.mouse.get_pressed()
+		for event in eventStack:
+		
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+			elif event.type == 6:
+				s.EVENT_CLICK(event)
+				return
+		"""
 		if(s.isMouseReleased and mousePressed[0] is 1) :
 			s.isMouseReleased = False
 		elif(not s.isMouseReleased and mousePressed[0] is 0):
-			s.EVENT_CLICK()
+			s.EVENT_CLICK(e)
 			s.isMouseReleased = True
-			
+		"""
+		
 	def EVENT_INITIALIZE(self):
 		pass
 
