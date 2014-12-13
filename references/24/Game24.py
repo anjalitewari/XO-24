@@ -59,15 +59,10 @@ class Game24(object):
         self.screenSize = (self.width, self.height) = (800, 600)
         self.screen     = pygame.display.set_mode(self.screenSize)
         # define main screen buttons (oh god so sloppy)
-<<<<<<< HEAD
-        # self.startBtn   = pygbutton.PygButton( (self.width/2-75, self.height/2-105, 150, 50), 'START', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-        # self.helpBtn    = pygbutton.PygButton( (self.width/2-75, self.height/2, 150, 50),     'HELP',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-        # self.quitBtn    = pygbutton.PygButton( (self.width/2-75, self.height/2+105, 150, 50), 'QUIT',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
-=======
+        
         self.startBtn   = pygbutton.PygButton( (self.width/2-85, self.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
         self.helpBtn    = pygbutton.PygButton( (self.width/2-85, self.height/2+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
         self.quitBtn    = pygbutton.PygButton( (self.width/2-85, self.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
->>>>>>> origin/develop
         
 
 
