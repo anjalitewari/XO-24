@@ -29,7 +29,10 @@ class SceneBasic(object):
 
 
 	#init methods
-	def __init__(self,  resolution):
+	def __init__(self,  resolution, screen):
+		self.screen = screen;
+		self.width = resolution[0]
+		self.height = resolution[1]
 		self.myBackground = pygame.Surface( resolution)
 		self.initBase()
 		self.initEvents();
@@ -55,7 +58,9 @@ class SceneBasic(object):
 	def initBackground(s,surface,resolution):
 		pass
 
-
+	def updateDisplay(self,s):
+		pass
+	
 	def updateStatic(self):
 		pass
 
