@@ -1,41 +1,51 @@
 import sys, pygame
 import os
+import pygbutton
 
 #Initialize pygame
 pygame.init()
 
 class Game24(object):
 
-    STATE_MENU = 0
-    STATE_GAME = 1
-    STATE_WIN_SCREEN =2
-    STATE_HELP = 3
-    
+    STATE_MENU       = 0
+    STATE_GAME       = 1
+    STATE_WIN_SCREEN = 2
+    STATE_HELP       = 3
+
+    # 1) define a button
+    demoBtn = pygbutton.PygButton((50, 50, 60, 30), 'White')
+
     def __init__(self):
         self.main()
 
     #Create a display
     def display(self):
+        pygame.display.set_caption('XO 24')        
         self.screenSize = (self.width, self.height) = (1024, 768)
-        self.screen = pygame.display.set_mode(self.screenSize)
+        self.screen     = pygame.display.set_mode(self.screenSize)
         
-    #Update the display and show the button
+    #Update the display and show the menu buttons
     def update_display(self):
         self.backgroundColor = 252,90,90
         self.screen.fill(self.backgroundColor)
-        btn = pygame.image.load("assets/game_icons/add.png")
-        btnrect = btn.get_rect()
-        self.screen.blit(btn, btnrect)
+        
+        # 2) draw the button -- be sure to pass in the screen reference (self.screen)        
+        self.demoBtn.draw(self.screen)
+
         pygame.display.flip()
         
+    # Main Game Loop
     def main(self):
         self.display()
-        
         while True:
             self.update_display()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
+                    sys.exit()
+                # 3) detect the click event on the demoBtn
+                if 'click' in self.demoBtn.handleEvent(event):
+                    print("clicked!")
                 
         
         #pygame.init()
