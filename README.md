@@ -1,5 +1,6 @@
 
-# Sugar_Activity_Quickstart
+# GET 24
+### adaptation of "24" for OLPC
 
 This is the framework for a Sugar Activity. Everything needed to quickly start an activity for the Sugar OLPC XO. Credit for this repo is given to Robin Brooke, whose blog can be found [here: http://rbrooke.blogspot.com/2010/01/creating-xo-file.html](http://rbrooke.blogspot.com/2010/01/creating-xo-file.html)
 
