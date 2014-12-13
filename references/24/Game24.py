@@ -1,8 +1,8 @@
-import sys, pygame
-import os
+# System Imports
+import sys, pygame, os
+# Plugin Imports
 import pygbutton
-
-#Initialize pygame
+# Initialize pygame
 pygame.init()
 
 class Game24(object):
@@ -12,8 +12,10 @@ class Game24(object):
     STATE_WIN_SCREEN = 2
     STATE_HELP       = 3
 
-    # 1) define a button
-    demoBtn = pygbutton.PygButton((50, 50, 60, 30), 'White')
+    # Main Screen Buttons
+    startBtn = pygbutton
+    helpBtn  = pygbutton
+    quitBtn  = pygbutton
 
     def __init__(self):
         self.main()
@@ -23,15 +25,21 @@ class Game24(object):
         pygame.display.set_caption('XO 24')        
         self.screenSize = (self.width, self.height) = (1024, 768)
         self.screen     = pygame.display.set_mode(self.screenSize)
-        
+        self.startBtn   = pygbutton.PygButton( (self.width/2-125, self.height/2-125, 250, 90), 'START', bgcolor=(252,90,90), fgcolor=(255,255,255) )
+        self.helpBtn    = pygbutton.PygButton( (self.width/2-125, self.height/2, 250, 90),     'HELP',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
+        self.quitBtn    = pygbutton.PygButton( (self.width/2-125, self.height/2+125, 250, 90), 'QUIT',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
+
     #Update the display and show the menu buttons
     def update_display(self):
         self.backgroundColor = 252,90,90
         self.screen.fill(self.backgroundColor)
         
-        # 2) draw the button -- be sure to pass in the screen reference (self.screen)        
-        self.demoBtn.draw(self.screen)
+        # draw btnz
+        self.startBtn.draw(self.screen)
+        self.helpBtn.draw(self.screen)
+        self.quitBtn.draw(self.screen)
 
+        # flip yo shiz
         pygame.display.flip()
         
     # Main Game Loop
@@ -40,14 +48,14 @@ class Game24(object):
         while True:
             self.update_display()
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or 'click' in self.quitBtn.handleEvent(event):
                     pygame.quit()
                     sys.exit()
-                # 3) detect the click event on the demoBtn
-                if 'click' in self.demoBtn.handleEvent(event):
-                    print("clicked!")
+                if 'click' in self.startBtn.handleEvent(event):
+                    print("start btn clicked!")
+                if 'click' in self.helpBtn.handleEvent(event):
+                    print("Help btn clicked!")
                 
-        
         #pygame.init()
 
         #size = (width, height) = (1024, 768)
