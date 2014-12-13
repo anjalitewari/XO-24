@@ -1,6 +1,5 @@
 import pygame
 import os
-from KButton import KButton
 import TextureLoader
 
 class SceneBasic(object):

@@ -2,6 +2,9 @@
 import sys, pygame, os
 # Plugin Imports
 import pygbutton
+# Import Scenes
+from SceneBasic import SceneBasic
+from SceneGame import SceneGame
 # Initialize pygame
 pygame.init()
 
