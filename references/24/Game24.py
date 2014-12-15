@@ -8,6 +8,7 @@ from SceneMenu import SceneMenu
 from SceneGame import SceneGame
 #from SceneHelp import SceneHelp
 #from SceneWin import SceneWin
+from IcnTextBox import IcnTextBox
 # Initialize pygame
 pygame.init()
 
@@ -22,7 +23,11 @@ class Game24(object):
 		print "Game24::init()"
 		# start the game with the MENU scene
 		self.currentState = self.STATE_MENU
-
+		
+		#set font
+		self.myFont = pygame.font.Font(os.path.join('assets', 'font','Roboto-Black.ttf') , 24)
+		IcnTextBox.setFont(self.myFont)
+		
 		# define the width and height of our display
 		width  = pygame.display.Info().current_w
 		height = pygame.display.Info().current_h
@@ -52,6 +57,7 @@ class Game24(object):
 			#self.STATE_HELP:  self.scnHelp
 		}
 		self.isRunning = True
+		
 		self.main()
 		
 
@@ -70,6 +76,7 @@ class Game24(object):
 
 	def loopUpdate(self):
 		print "Game24::loopUpdate()"
+		pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
 		try :
 			while self.isRunning:
 				eventStack = pygame.event.get();
@@ -114,7 +121,6 @@ class Game24(object):
 	# Event - Starts the Game Scene
 	def EVENTHDR_SCENE_START_GAME(self):
 		print "Game24::EVENTHDR_SCENE_START_GAME()"
-		# SoundManager.BTTN_START()
 		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
 

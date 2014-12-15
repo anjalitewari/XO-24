@@ -1,5 +1,8 @@
 from SceneBasic import *
 import random, HelperVec2
+#buttons
+from KButton import KButton
+from IcnBasic import IcnBasic
 
 class SceneGame(SceneBasic):
 	def __init__(self, screenSize, screen):
@@ -18,8 +21,13 @@ class SceneGame(SceneBasic):
 		pass
 
 	def initButtons(s, screenSize):
+		print("SceneGAME: initButtons");
 		#set buttons here
-		s.bttnBack = pygbutton.PygButton( (10, 10, 39, 31), '', bgcolor=(252,90,90), fgcolor=(255,255,255), normal="assets/buttons/back_btn.png" )
+		sizeLaunch = (39/800.0*screenSize[0],31/600.0*screenSize[1])
+		s.textureIdButtonBack = TextureLoader.load( os.path.join('assets', 'buttons','back_btn.png'), sizeLaunch)
+
+		s.bttnBack =	KButton(10, 10, 39, 31,  s.textureIdButtonBack,True)
+		#s.bttnBack = pygbutton.PygButton( (10, 10, 39, 31), '', bgcolor=(252,90,90), fgcolor=(255,255,255), normal="assets/buttons/back_btn.png" )
 
 	def registerEvent_menu(s,e): s.EVENT_MENU.append(e)
 		
@@ -33,19 +41,14 @@ class SceneGame(SceneBasic):
 
 	def EVENT_CLICK(self, e):
 		print "EVENT_CLICK"
-		#self.CLICK_BUTTONS(e)
-		buttons_event = [
-			[self.bttnBack, self.EVENT_MENU],
-		]
-		for btn,event in buttons_event:
-				if 'enter' in btn.handleEvent(e):
-					self.helperRaiseEvent(event)
-					break
+		self.CLICK_BUTTONS()
+		
 
 	def EVENT_INITIALIZE(self):
 		#reset
 		print('reset');
-		
+		pass
+	
 	def EVENT_SCENE_START(s):
 		#initializes all items on screen
 		print('initializes')
@@ -53,20 +56,19 @@ class SceneGame(SceneBasic):
 		s.screen.fill(s.backgroundColor)
 		s.bttnBack.draw(s.screen)
 		pygame.display.flip()
+		pass
+
 	
-	
-	#def CLICK_BUTTON_MENU(self): self.helperRaiseEvent(self.EVENT_MENU)
+	def CLICK_BUTTON_MENU(self): self.helperRaiseEvent(self.EVENT_MENU)
 
 	def CLICK_BUTTONS(self):
 		#add button listeners here
-		"""
-	mousePos = pygame.mouse.get_pos()
-	bttn_event = [
-		[self.bttnMenu, self.CLICK_BUTTON_MENU]]
-	for bttn,event in bttn_event:
-		if( not bttn.isUnder(mousePos)):continue
-		event()
+		mousePos = pygame.mouse.get_pos()
+		bttn_event = [
+			[self.bttnBack, self.CLICK_BUTTON_MENU],
+		]
+		for bttn,event in bttn_event:
+			if( not bttn.isUnder(mousePos)):continue
+			event()
 			return  True
-			
-	return False
-	"""
+		return False

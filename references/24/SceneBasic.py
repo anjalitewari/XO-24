@@ -3,6 +3,13 @@ import os
 import TextureLoader
 import pygbutton
 
+#buttons
+from KButton import KButton
+from IcnBasic import IcnBasic
+#labels
+from IcnTextBox import IcnTextBox
+from IcnTextDisplayer import IcnTextDisplayer
+
 class SceneBasic(object):
 	
 	@staticmethod
