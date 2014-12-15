@@ -76,8 +76,6 @@ class SceneMenu(SceneBasic):
 
 	def EVENT_CLICK(self, e):
 		print("SceneMenu::EVENT_CLICK")
-		print(e)
-		#mouseAt = pygame.mouse.get_pos()
 		
 		buttons_event = [
 			[self.bttnPlay, self.EVENT_PLAY],

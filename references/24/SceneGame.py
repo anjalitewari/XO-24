@@ -1,4 +1,5 @@
 from SceneBasic import *
+import random, HelperVec2
 
 class SceneGame(SceneBasic):
 	def __init__(self, screenSize, screen):
@@ -17,7 +18,7 @@ class SceneGame(SceneBasic):
 
 	def initButtons(s, screenSize):
 		#set buttons here
-		pass
+		s.bttnPlay = pygbutton.PygButton( (s.width/2-85, s.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
 
 	def registerEvent_menu(s,e):s.EVENT_MENU.append(e)
 		
@@ -28,17 +29,21 @@ class SceneGame(SceneBasic):
 		#set background here with texture or color
 		pass
 
-	def EVENT_CLICK(self):
+	def EVENT_CLICK(self, e):
 		print "EVENT_CLICK"
 		self.CLICK_BUTTONS()
 
 	def EVENT_INITIALIZE(self):
 		#reset
-		pass
-	
+		print('reset');
+		
 	def EVENT_SCENE_START(self):
 		#initializes all items on screen
-		pass
+		print('initializes')
+		self.backgroundColor = 252,90,90
+		self.screen.fill(self.backgroundColor)
+		pygame.display.flip()
+	
 	
 	#def CLICK_BUTTON_MENU(self): self.helperRaiseEvent(self.EVENT_MENU)
 
