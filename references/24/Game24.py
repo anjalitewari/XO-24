@@ -117,7 +117,7 @@ class Game24(object):
 		print "Game24::EVENTHDR_SCENE_START_GAME()"
 		# SoundManager.BTTN_START()
 		self.changeState(self.STATE_GAME)
-		# self.scnGame.EVENT_INITIALIZE()
+		self.scnGame.EVENT_INITIALIZE()
 
 	# Event - Starts the Help Scene
 	def EVENTHDR_SCENE_START_HELP(self):
