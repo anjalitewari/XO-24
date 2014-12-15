@@ -3,7 +3,7 @@ import random, HelperVec2
 #buttons
 from KButton import KButton
 from IcnBasic import IcnBasic
-import Game24
+# import Game24
 
 class SceneGame(SceneBasic):
     def __init__(self, screenSize, screen):

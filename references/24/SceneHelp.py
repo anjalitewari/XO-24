@@ -27,7 +27,7 @@ class SceneHelp(SceneBasic):
 	def registerEvent_menu(s,e): s.EVENT_MENU.append(e)
 		
 	def initEvents(s):
-		print("SceneGAME: initEvents");
+		print("SceneHelp: initEvents");
 		s.EVENT_MENU = []
 
 	def initBackground(s,screen,resolution):
