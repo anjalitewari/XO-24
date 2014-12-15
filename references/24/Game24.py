@@ -44,7 +44,7 @@ class Game24(object):
 
 		# Register application events for each scene
 		# self.registerEvents(self.scnMenu,self.scnGame,self.scnWin,self.scnHelp)
-		self.registerEvents(self.scnMenu)
+		self.registerEvents(self.scnMenu, self.scnGame)
 		self.dicScenes = {
 			self.STATE_MENU: self.scnMenu,
 			self.STATE_GAME: self.scnGame,
@@ -67,7 +67,6 @@ class Game24(object):
 		self.isRunning = True
 		self.scnMenu.EVENT_SCENE_START()
 		self.loopUpdate();
-		self.display();
 
 	def loopUpdate(self):
 		print "Game24::loopUpdate()"
@@ -101,7 +100,7 @@ class Game24(object):
 		sceneMenu.registerEvent_help(self.EVENTHDR_SCENE_START_HELP)
 		sceneMenu.registerEvent_quit(self.EVENTHDR_QUIT)
 
-		# sceneGame.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
+		sceneGame.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
 		#sceneGame.registerEvent_win(self.EVENTHDR_SCENE_START_WIN)
 		#sceneWin.registerEvent_finished(self.EVENTHDR_SCENE_CONTINUE_GAME)
 		#sceneHelp.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
@@ -116,8 +115,8 @@ class Game24(object):
 	def EVENTHDR_SCENE_START_GAME(self):
 		print "Game24::EVENTHDR_SCENE_START_GAME()"
 		# SoundManager.BTTN_START()
+		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
-		# self.scnGame.EVENT_INITIALIZE()
 
 	# Event - Starts the Help Scene
 	def EVENTHDR_SCENE_START_HELP(self):
@@ -135,7 +134,6 @@ class Game24(object):
 	# Event - Starts the Main Menu Scene
 	def EVENTHDR_SCENE_START_MENU(self):
 		print "Game24::EVENTHDR_SCENE_START_MENU()"
-		self.scnMenu.EVENT_INITIALIZE()
 		self.changeState(self.STATE_MENU)		
 
 	# Event - Fired when a Scene Change begins
