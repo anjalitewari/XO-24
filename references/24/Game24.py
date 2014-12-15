@@ -13,25 +13,25 @@ pygame.init()
 
 class Game24(object):
 
-	STATE_MENU	   = 0
-	STATE_GAME	   = 1
+	STATE_MENU	     = 0
+	STATE_GAME	     = 1
 	STATE_WIN_SCREEN = 2
-	STATE_HELP	   = 3
+	STATE_HELP	     = 3
 
 	def __init__(self):
+		print "Game24::init()"
 		# start the game with the MENU scene
 		self.currentState = self.STATE_MENU
 
-
 		# define the width and height of our display
-		width = pygame.display.Info().current_w
+		width  = pygame.display.Info().current_w
 		height = pygame.display.Info().current_h
 		if(float(width)/float(height) == float(4)/float(3)):
 			screenSize = (width,height)
 		else:
 			screenSize = (800,600)
 		TextureLoader.screenSize =screenSize
-		self.screen = pygame.display.set_mode(screenSize, pygame.RESIZABLE)
+		self.screen = pygame.display.set_mode(screenSize, pygame.RESIZABLE) # change to FULLSCREEN for prod.
 		
 
 		# define our scenes and game clock
@@ -51,66 +51,26 @@ class Game24(object):
 			#self.STATE_WIN_SCREEN: self.scnWin,
 			#self.STATE_HELP:  self.scnHelp
 		}
+		self.isRunning = True
 		self.main()
 		
-	#Create a display
-	def display(self):
-		pygame.display.set_caption('XO 24')		
-		self.screenSize = (self.width, self.height) = (800, 600)
-		self.screen	 = pygame.display.set_mode(self.screenSize)
-		# define main screen buttons (oh god so sloppy)
-		
-		self.startBtn   = pygbutton.PygButton( (self.width/2-85, self.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		self.helpBtn	= pygbutton.PygButton( (self.width/2-85, self.height/2+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		self.quitBtn	= pygbutton.PygButton( (self.width/2-85, self.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
-		
-
 
 	#Update the display and show the menu buttons
 	def update_display(self):
+		print "Game24::update_display()"
+		self.dicScenes[self.currentState].update_display()
 		pass
-		# if self.currentState == self.STATE_MENU:
-		#	 self.backgroundColor = 252,90,90
-		#	 self.screen.fill(self.backgroundColor)
-		#	 self.startBtn.draw(self.screen)
-		#	 self.helpBtn.draw(self.screen)
-		#	 self.quitBtn.draw(self.screen)
-		#	 self.screen.blit(self.logo, (self.width/2-141, 100) )
-		# if self.currentState == self.STATE_GAME: 
-		#	 print("state is game!")
-		# pygame.display.flip()
 		
 	# Main Game Loop
 	def main(self):
+		print "Game24::main()"
 		self.isRunning = True
-		# threadRender = threading.Thread(target = self.loopRender);
 		self.scnMenu.EVENT_SCENE_START()
-		# threadRender.start();
 		self.loopUpdate();
-		# threadRender.join();		
-		# self.display()
-		# while True:
-		#	 self.update_display()
-		#	 for event in pygame.event.get():
-		#		 if event.type == pygame.QUIT or 'click' in self.quitBtn.handleEvent(event):
-		#			 pygame.quit()
-		#			 sys.exit()
-		#		 if self.currentState == self.STATE_MENU:
-		#			 if 'click' in self.startBtn.handleEvent(event):
-		#				 print("start btn clicked!")
-		#				 self.currentState = self.STATE_GAME
-		#			 if 'click' in self.helpBtn.handleEvent(event):
-		#				 print("Help btn clicked!")
-		#				 self.currentState = self.STATE_HELP
-		#		 elif self.currentState == self.STATE_GAME:
-		#			 print("todo: handle game state")
-		#		 elif self.currentState == self.STATE_WIN_SCREEN:
-		#			 print("todo: handle game win state")
-		#		 elif self.currentState == self.STATE_HELP:
-		#			 print("todo: handle help state")
-
+		self.display();
 
 	def loopUpdate(self):
+		print "Game24::loopUpdate()"
 		try :
 			while self.isRunning:
 				eventStack = pygame.event.get();
@@ -121,17 +81,19 @@ class Game24(object):
 				self.dicScenes[self.currentState].listenForEvents(eventStack)
 		except :
 			print "CRITICAL ERROR : RESTARTING LOOP loopUpdate"
-			#self.loopUpdate()
+			self.loopUpdate()
 		self.isRunning = False
 		
+	# sets the current state in Game24 to stateNew
+	# calls the run event of stateNew
 	def changeState(self, stateNew):
+		print "Game24::changeState()"
+		self.currentState = stateNew
 		self.dicScenes[stateNew].EVENT_SCENE_START()
-		#stop rendering whenever "potential" rendering process related process
-		#self.lockRender.acquire()
-		self.myState = stateNew	
+
 		
 	def registerEvents(self, sceneMenu,sceneGame=None,sceneWin=None, sceneHelp=None):
-		print "Register Events"
+		print "Game24::registerEvents()"
 		SceneBasic.registerEvent_sceneChangeStart(self.EVENTHDR_SCENE_CHANGE_START)
 		SceneBasic.registerEvent_sceneChangeEnd(self.EVENTHDR_SCENE_CHANGE_END)
 
@@ -152,17 +114,19 @@ class Game24(object):
 	"""""""""""
 	# Event - Starts the Game Scene
 	def EVENTHDR_SCENE_START_GAME(self):
-		print("Start Game")
+		print "Game24::EVENTHDR_SCENE_START_GAME()"
 		# SoundManager.BTTN_START()
-		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
+		# self.scnGame.EVENT_INITIALIZE()
 
 	# Event - Starts the Help Scene
 	def EVENTHDR_SCENE_START_HELP(self):
+		print "Game24::EVENTHDR_SCENE_START_HELP()"
 		self.changeState(self.STATE_HELP)
   
 	# Event - Quits the game
 	def EVENTHDR_QUIT(self):
+		print "Game24::EVENTHDR_QUIT"
 		self.isRunning = False
 		pygame.quit()
 		sys.exit()
@@ -170,16 +134,19 @@ class Game24(object):
   
 	# Event - Starts the Main Menu Scene
 	def EVENTHDR_SCENE_START_MENU(self):
+		print "Game24::EVENTHDR_SCENE_START_MENU()"
 		self.scnMenu.EVENT_INITIALIZE()
 		self.changeState(self.STATE_MENU)		
 
 	# Event - Fired when a Scene Change begins
 	def EVENTHDR_SCENE_CHANGE_START(self):
+		print "Game24::EVENTHDR_SCENE_CHANGE_START()"
 		self.lockRender.acquire()
 		pass
 
 	# Event - Fired when a Scene Change ends
 	def EVENTHDR_SCENE_CHANGE_END(self):
+		print "Game24::EVENTHDR_SCENE_CHANGE_END()"
 		self.lockRender.release()
 		pass
 
