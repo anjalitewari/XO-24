@@ -53,18 +53,6 @@ class Game24(object):
 		}
 		self.main()
 		
-	#Create a display
-	def display(self):
-		pygame.display.set_caption('XO 24')		
-		self.screenSize = (self.width, self.height) = (800, 600)
-		self.screen	 = pygame.display.set_mode(self.screenSize)
-		# define main screen buttons (oh god so sloppy)
-		
-		self.startBtn   = pygbutton.PygButton( (self.width/2-85, self.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		self.helpBtn	= pygbutton.PygButton( (self.width/2-85, self.height/2+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		self.quitBtn	= pygbutton.PygButton( (self.width/2-85, self.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
-		
-
 
 	#Update the display and show the menu buttons
 	def update_display(self):
