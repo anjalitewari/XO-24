@@ -4,7 +4,7 @@ import random, HelperVec2
 from KButton import KButton
 from IcnBasic import IcnBasic
 
-class SceneGame(SceneBasic):
+class SceneHelp(SceneBasic):
 	def __init__(self, screenSize, screen):
 		print("SceneGAME: init");
 		SceneBasic.__init__(self, screenSize, screen)
@@ -14,10 +14,7 @@ class SceneGame(SceneBasic):
 		self.initButtons(screenSize)
 
 	def initImages(s, screenSize):
-		#Use this to load assets
-		#s.textureIdBG = TextureLoader.load( os.path.join('assets', 'screenStart','background.png'),screenSize)
-
-		#set background asset here
+		s.helpImg = pygame.image.load( os.path.join('assets','buttons', 'help_screen.png') )
 		pass
 
 	def initButtons(s, screenSize):
@@ -25,9 +22,7 @@ class SceneGame(SceneBasic):
 		#set buttons here
 		sizeLaunch = (39/800.0*screenSize[0],31/600.0*screenSize[1])
 		s.textureIdButtonBack = TextureLoader.load( os.path.join('assets', 'buttons','back_btn.png'), sizeLaunch)
-
 		s.bttnBack = KButton(10, 10, 39, 31,  s.textureIdButtonBack,True)
-		#s.bttnBack = pygbutton.PygButton( (10, 10, 39, 31), '', bgcolor=(252,90,90), fgcolor=(255,255,255), normal="assets/buttons/back_btn.png" )
 
 	def registerEvent_menu(s,e): s.EVENT_MENU.append(e)
 		
@@ -55,6 +50,7 @@ class SceneGame(SceneBasic):
 		s.backgroundColor = 252,90,90
 		s.screen.fill(s.backgroundColor)
 		s.bttnBack.draw(s.screen)
+		s.screen.blit(s.helpImg, (0,50))
 		pygame.display.flip()
 		pass
 

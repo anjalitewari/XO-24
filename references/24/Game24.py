@@ -6,7 +6,7 @@ import pygbutton, TextureLoader
 from SceneBasic import SceneBasic
 from SceneMenu import SceneMenu
 from SceneGame import SceneGame
-#from SceneHelp import SceneHelp
+from SceneHelp import SceneHelp
 #from SceneWin import SceneWin
 from IcnTextBox import IcnTextBox
 # Initialize pygame
@@ -44,17 +44,17 @@ class Game24(object):
 		self.scnMenu	  = SceneMenu(screenSize, self.screen)
 		self.scnGame	  = SceneGame(screenSize,  self.screen)
 		#self.scnWin	   = SceneWin(screenSize,  self.screen)
-		#self.scnHelp	  = SceneHelp(screenSize,  self.screen)
+		self.scnHelp	  = SceneHelp(screenSize,  self.screen)
 
 
 		# Register application events for each scene
 		# self.registerEvents(self.scnMenu,self.scnGame,self.scnWin,self.scnHelp)
-		self.registerEvents(self.scnMenu, self.scnGame)
+		self.registerEvents(self.scnMenu, self.scnGame, self.scnHelp)
 		self.dicScenes = {
 			self.STATE_MENU: self.scnMenu,
 			self.STATE_GAME: self.scnGame,
 			#self.STATE_WIN_SCREEN: self.scnWin,
-			#self.STATE_HELP:  self.scnHelp
+			self.STATE_HELP:  self.scnHelp
 		}
 		self.isRunning = True
 		
@@ -98,7 +98,7 @@ class Game24(object):
 		self.dicScenes[stateNew].EVENT_SCENE_START()
 
 		
-	def registerEvents(self, sceneMenu,sceneGame=None,sceneWin=None, sceneHelp=None):
+	def registerEvents(self, sceneMenu,sceneGame=None, sceneHelp=None, sceneWin=None):
 		print "Game24::registerEvents()"
 		SceneBasic.registerEvent_sceneChangeStart(self.EVENTHDR_SCENE_CHANGE_START)
 		SceneBasic.registerEvent_sceneChangeEnd(self.EVENTHDR_SCENE_CHANGE_END)
@@ -108,9 +108,9 @@ class Game24(object):
 		sceneMenu.registerEvent_quit(self.EVENTHDR_QUIT)
 
 		sceneGame.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
+		sceneHelp.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
 		#sceneGame.registerEvent_win(self.EVENTHDR_SCENE_START_WIN)
 		#sceneWin.registerEvent_finished(self.EVENTHDR_SCENE_CONTINUE_GAME)
-		#sceneHelp.registerEvent_menu(self.EVENTHDR_SCENE_START_MENU)
 		pass
 
 
@@ -127,6 +127,7 @@ class Game24(object):
 	# Event - Starts the Help Scene
 	def EVENTHDR_SCENE_START_HELP(self):
 		print "Game24::EVENTHDR_SCENE_START_HELP()"
+		self.scnHelp.EVENT_INITIALIZE()
 		self.changeState(self.STATE_HELP)
   
 	# Event - Quits the game

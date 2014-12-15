@@ -39,9 +39,9 @@ class SceneMenu(SceneBasic):
 		print("SceneMenu::initButtons")
 		# Main menu buttons
 		center     = HelperVec2.mult(resolution, (.5,.5) )
-		s.bttnPlay = IcnTextBox(center[0]-85, s.height/2+10, 170, 45, "Start")
-		s.bttnHelp = IcnTextBox(center[0]-85, s.height/2+70, 170, 45, "Help")
-		s.bttnQuit = IcnTextBox(center[0]-85, s.height/2+130, 170, 45, "Quit")
+		s.bttnPlay = IcnTextBox(center[0]-85, center[1]+10, 170, 45, "Start")
+		s.bttnHelp = IcnTextBox(center[0]-85, center[1]+70, 170, 45, "Help")
+		s.bttnQuit = IcnTextBox(center[0]-85, center[1]+130, 170, 45, "Quit")
 		s.buttons  = [ s.bttnPlay, s.bttnHelp, s.bttnQuit ]
 		
 	#Update the display and show the menu buttons
@@ -58,29 +58,27 @@ class SceneMenu(SceneBasic):
 		self.updateDisplay(self)
 		#IcnParticleShootingStar.textureBG = self.myBackground
 		pass
-	
+
 	def EVENT_CLICK(self, e):
 		print("SceneMenu::EVENT_CLICK")
 		mousePos = pygame.mouse.get_pos()
-		print(self.bttnPlay)
+		# print(self.bttnPlay)
 		bttn_event = [
 			[self.bttnPlay, self.EVENT_PLAY],
 			[self.bttnHelp, self.EVENT_HELP],
 			[self.bttnQuit, self.EVENT_QUIT]
 		]
+
 		for bttn,event in bttn_event:
 			if( not bttn.isUnder(mousePos)):continue
 			self.helperRaiseEvent(event);
 			return  True
-		return False
+		return False 
 
-
-	
 	def initBackground(s,screen,size):
 		print("SceneMenu::initBackground")
 		s.backgroundColor = (252,90,90)
 		s.screen.fill(s.backgroundColor)
-
 
 	def renderUpdate(s,timeElapsed):
 		print("SceneMenu::renderUpdate")
