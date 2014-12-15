@@ -47,7 +47,7 @@ class Game24(object):
 		self.registerEvents(self.scnMenu)
 		self.dicScenes = {
 			self.STATE_MENU: self.scnMenu,
-			#self.STATE_GAME: self.scnGame,
+			self.STATE_GAME: self.scnGame,
 			#self.STATE_WIN_SCREEN: self.scnWin,
 			#self.STATE_HELP:  self.scnHelp
 		}

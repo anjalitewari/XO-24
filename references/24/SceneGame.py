@@ -1,4 +1,5 @@
 from SceneBasic import *
+import random, HelperVec2
 
 class SceneGame(SceneBasic):
 	def __init__(self, screenSize, screen):
@@ -34,11 +35,12 @@ class SceneGame(SceneBasic):
 
 	def EVENT_INITIALIZE(self):
 		#reset
-		pass
-	
+		print('reset');
+		
 	def EVENT_SCENE_START(self):
 		#initializes all items on screen
-		pass
+		print('initializes');
+	
 	
 	#def CLICK_BUTTON_MENU(self): self.helperRaiseEvent(self.EVENT_MENU)
 
