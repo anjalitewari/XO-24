@@ -29,6 +29,7 @@ class SceneMenu(SceneBasic):
 		print("SceneMenu::initOthers")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		# s.initParticles(resolution)
 		# s.renderScreenObjects.extend(s.arrShootingStars)
 		# s.icnMouse = IcnBasic.FROM_PATH(os.path.join('assets', 'screenCommon', 'cursor.png') )
@@ -42,11 +43,14 @@ class SceneMenu(SceneBasic):
 >>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
+=======
+>>>>>>> FETCH_HEAD
 
 	def initButtons(s,resolution):
 		print("SceneMenu::initButtons")
 		# Main menu buttons
 		center     = HelperVec2.mult(resolution, (.5,.5) )
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	
@@ -55,14 +59,6 @@ class SceneMenu(SceneBasic):
 		s.bttnQuit = IcnTextBox(center[0]-85, s.height/2+130, 170, 45, "Quit")
 
 =======
-		s.bttnPlay = pygbutton.PygButton( (center[0]-85, center[1]+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnHelp = pygbutton.PygButton( (center[0]-85, center[1]+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnQuit = pygbutton.PygButton( (center[0]-85, center[1]+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
->>>>>>> FETCH_HEAD
-=======
-		s.bttnPlay = pygbutton.PygButton( (center[0]-85, center[1]+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnHelp = pygbutton.PygButton( (center[0]-85, center[1]+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnQuit = pygbutton.PygButton( (center[0]-85, center[1]+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
 >>>>>>> FETCH_HEAD
 		s.buttons  = [ s.bttnPlay, s.bttnHelp, s.bttnQuit ]
 		
@@ -106,18 +102,10 @@ class SceneMenu(SceneBasic):
 
 	def renderUpdate(s,timeElapsed):
 		print("SceneMenu::renderUpdate")
-<<<<<<< HEAD
-<<<<<<< HEAD
-		# s.icnMouse.pos =  pygame.mouse.get_pos()
-		# s.ratio = (s.ratio+800.15*timeElapsed ) % 3.5
-		# s.distortH.range = (s.ratio ,s.ratio)
-		# s.distortV.range = (-s.ratio , -s.ratio)
-		# s.distortH.pos = (0,pygame.mouse.get_pos()[1])
-		# s.distortV.pos = (pygame.mouse.get_pos()[0],0)
-		# s.distortH.pos =(0, pygame.mouse.get_pos()[1])
-		# s.distortV.pos = (0,pygame.mouse.get_pos()[1]+s.distortSpacing )
-		# for icn in s.arrShootingStars:
-		# 	icn.drawUpdate(timeElapsed)
+=======
+
+		
+>>>>>>> FETCH_HEAD
 =======
 
 		
