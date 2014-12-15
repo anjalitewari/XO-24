@@ -49,8 +49,6 @@ class SceneMenu(SceneBasic):
 		#IcnParticleShootingStar.textureBG = self.myBackground
 
 	def EVENT_CLICK(self, e):
-		print("SceneMenu::EVENT_CLICK")
-		
 		buttons_event = [
 			[self.bttnPlay, self.EVENT_PLAY],
 			[self.bttnHelp, self.EVENT_HELP],
@@ -59,7 +57,7 @@ class SceneMenu(SceneBasic):
 		
 		for btn,event in buttons_event:
 				if 'enter' in btn.handleEvent(e):
-					self.helperRaiseEvent(event)
+					self.helperRaiseEvent(self.EVENT_PLAY)
 					break
 
 	
