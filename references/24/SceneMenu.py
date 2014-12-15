@@ -27,39 +27,21 @@ class SceneMenu(SceneBasic):
 
 	def initOthers(s , resolution):
 		print("SceneMenu::initOthers")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		# s.initParticles(resolution)
-		# s.renderScreenObjects.extend(s.arrShootingStars)
-		# s.icnMouse = IcnBasic.FROM_PATH(os.path.join('assets', 'screenCommon', 'cursor.png') )
-		# s.renderScreenObjects.append(s.icnMouse)
+
 
 	def helperInitKButton(s, center, textureID):
 		texture = TextureLoader.get( textureID)
 		size = (texture.get_width(),texture.get_height())
 		return KButton(center[0] -size[0] *.5,center[1]-size[1]*.5,size[0],size[1], textureID )
-=======
->>>>>>> FETCH_HEAD
-=======
->>>>>>> FETCH_HEAD
-=======
->>>>>>> FETCH_HEAD
+
 
 	def initButtons(s,resolution):
 		print("SceneMenu::initButtons")
 		# Main menu buttons
 		center     = HelperVec2.mult(resolution, (.5,.5) )
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
 		s.bttnPlay = IcnTextBox(center[0]-85, s.height/2+10, 170, 45, "Start")
 		s.bttnHelp = IcnTextBox(center[0]-85, s.height/2+70, 170, 45, "Help")
 		s.bttnQuit = IcnTextBox(center[0]-85, s.height/2+130, 170, 45, "Quit")
-
-=======
->>>>>>> FETCH_HEAD
 		s.buttons  = [ s.bttnPlay, s.bttnHelp, s.bttnQuit ]
 		
 	#Update the display and show the menu buttons
@@ -102,15 +84,3 @@ class SceneMenu(SceneBasic):
 
 	def renderUpdate(s,timeElapsed):
 		print("SceneMenu::renderUpdate")
-=======
-
-		
->>>>>>> FETCH_HEAD
-=======
-
-		
->>>>>>> FETCH_HEAD
-=======
-
-		
->>>>>>> FETCH_HEAD
