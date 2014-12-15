@@ -37,7 +37,7 @@ class Game24(object):
 		# define our scenes and game clock
 		self.clock		= pygame.time.Clock()
 		self.scnMenu	  = SceneMenu(screenSize, self.screen)
-		#self.scnGame	  = SceneGame(screenSize,  self.screen)
+		self.scnGame	  = SceneGame(screenSize,  self.screen)
 		#self.scnWin	   = SceneWin(screenSize,  self.screen)
 		#self.scnHelp	  = SceneHelp(screenSize,  self.screen)
 
@@ -123,7 +123,12 @@ class Game24(object):
 			print "CRITICAL ERROR : RESTARTING LOOP loopUpdate"
 			#self.loopUpdate()
 		self.isRunning = False
-			
+		
+	def changeState(self, stateNew):
+		self.dicScenes[stateNew].EVENT_SCENE_START()
+		#stop rendering whenever "potential" rendering process related process
+		#self.lockRender.acquire()
+		self.myState = stateNew	
 		
 	def registerEvents(self, sceneMenu,sceneGame=None,sceneWin=None, sceneHelp=None):
 		print "Register Events"
@@ -147,6 +152,7 @@ class Game24(object):
 	"""""""""""
 	# Event - Starts the Game Scene
 	def EVENTHDR_SCENE_START_GAME(self):
+		print("Start Game")
 		# SoundManager.BTTN_START()
 		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
@@ -164,6 +170,7 @@ class Game24(object):
   
 	# Event - Starts the Main Menu Scene
 	def EVENTHDR_SCENE_START_MENU(self):
+		self.scnMenu.EVENT_INITIALIZE()
 		self.changeState(self.STATE_MENU)		
 
 	# Event - Fired when a Scene Change begins

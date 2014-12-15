@@ -1,8 +1,8 @@
 from SceneBasic import *
 
 class SceneGame(SceneBasic):
-	def __init__(self, screenSize):
-		SceneBasic.__init__(self, screenSize)
+	def __init__(self, screenSize, screen):
+		SceneBasic.__init__(self, screenSize, screen)
 
 	def initOthers(self, screenSize):
 		self.initImages(screenSize) #load background
@@ -20,6 +20,7 @@ class SceneGame(SceneBasic):
 		pass
 
 	def registerEvent_menu(s,e):s.EVENT_MENU.append(e)
+		
 	def initEvent(s):
 		s.EVENT_MENU = []
 
@@ -31,6 +32,14 @@ class SceneGame(SceneBasic):
 		print "EVENT_CLICK"
 		self.CLICK_BUTTONS()
 
+	def EVENT_INITIALIZE(self):
+		#reset
+		pass
+	
+	def EVENT_SCENE_START(self):
+		#initializes all items on screen
+		pass
+	
 	#def CLICK_BUTTON_MENU(self): self.helperRaiseEvent(self.EVENT_MENU)
 
 	def CLICK_BUTTONS(self):

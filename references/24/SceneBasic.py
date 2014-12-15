@@ -8,7 +8,7 @@ class SceneBasic(object):
 	@staticmethod
 	def helperRaiseEvent(events):
 		print(events);
-		#for e in events: e();
+		for e in events: e();
 
 	event_scene_change_start =[]
 	event_scene_change_end =[]

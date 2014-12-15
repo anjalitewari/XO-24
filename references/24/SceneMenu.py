@@ -6,7 +6,7 @@ class SceneMenu(SceneBasic):
 	def __init__(self,  resolution,	screen):
 		print("SceneMenu::init")
 		SceneBasic.__init__(self,resolution, screen)
-		self.updateDisplay(self)
+		# self.updateDisplay(self)
 	
 	def registerEvent_play(s,e): s.EVENT_PLAY.append(e);pass
 	def registerEvent_help(s,e): s.EVENT_HELP.append(e);pass
@@ -71,6 +71,7 @@ class SceneMenu(SceneBasic):
 	
 	def EVENT_SCENE_START(self):
 		print("SceneMenu::EVENT_SCENE_START")
+		self.updateDisplay(self)
 		#IcnParticleShootingStar.textureBG = self.myBackground
 
 	def EVENT_CLICK(self, e):
@@ -87,9 +88,9 @@ class SceneMenu(SceneBasic):
 		for btn,event in buttons_event:
 				if 'enter' in btn.handleEvent(e):
 					self.helperRaiseEvent(event)
-					print("cliiiiiiiiiiiiicked")
 					break
 
+	
 	def initBackground(s,screen,size):
 		print("SceneMenu::initBackground")
 		# screen.fill((255, 255, 255))
