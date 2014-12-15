@@ -51,6 +51,7 @@ class Game24(object):
 			#self.STATE_WIN_SCREEN: self.scnWin,
 			#self.STATE_HELP:  self.scnHelp
 		}
+		self.isRunning = True
 		self.main()
 		
 	#Create a display
@@ -154,8 +155,9 @@ class Game24(object):
 	def EVENTHDR_SCENE_START_GAME(self):
 		print("Start Game")
 		# SoundManager.BTTN_START()
-		self.scnGame.EVENT_INITIALIZE()
 		self.changeState(self.STATE_GAME)
+		# self.scnGame.EVENT_INITIALIZE()
+		
 
 	# Event - Starts the Help Scene
 	def EVENTHDR_SCENE_START_HELP(self):

@@ -51,10 +51,10 @@ class SceneMenu(SceneBasic):
 		# s.bttnHow =	s.helperInitKButton ((center[0],center[1]), s.textureIdBttnHelp)
 		# s.bttnQuit =	s.helperInitKButton ((center[0],center[1]+60), s.textureIdBttnExit)  #KButton(center[0]  -100,center[1] + 100, 200, 75,s.textureIdBttnExit)
 		# s.buttons = [s.bttnPlay,s.bttnHow,s.bttnQuit]
-		# center = HelperVec2.mult(resolution, (.5,.5) )
-		s.bttnPlay = pygbutton.PygButton( (s.width/2-85, s.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnHelp = pygbutton.PygButton( (s.width/2-85, s.height/2+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
-		s.bttnQuit = pygbutton.PygButton( (s.width/2-85, s.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
+		center     = HelperVec2.mult(resolution, (.5,.5) )
+		s.bttnPlay = pygbutton.PygButton( (center[0]-85, s.height/2+10, 170, 45), 'Start', bgcolor=(252,90,90), fgcolor=(255,255,255) )
+		s.bttnHelp = pygbutton.PygButton( (center[0]-85, s.height/2+70, 170, 45), 'Help',  bgcolor=(252,90,90), fgcolor=(255,255,255) )
+		s.bttnQuit = pygbutton.PygButton( (center[0]-85, s.height/2+130, 170, 45), 'Quit',  bgcolor=(255,90,90), fgcolor=(255,255,255) )
 		s.buttons  = [ s.bttnPlay, s.bttnHelp, s.bttnQuit ]
 		
 		
