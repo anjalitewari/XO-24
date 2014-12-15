@@ -34,17 +34,21 @@ else:
     from itertools import zip_longest
 
 class Game:
-
+    
+    # constructor
     def __init__(self):
         answer = ''
     
+    # Chooses 4 numbers at random and calls solve on them to 
+    # check if they can solve to 24
     def choose4(self):
         'four random digits >0 as characters that can solve to 24'
         digits = [str(random.randint(1,9)) for i in range(4)]
         while self.solve(digits) == '!' :
             digits = [str(random.randint(1,9)) for i in range(4)]    
         return digits
-
+    
+    """
     def ask4(self):
         'get four random digits >0 from the player'
         digits = ''
@@ -56,7 +60,9 @@ class Game:
     def welcome(self, digits):
         print (__doc__)
         print ("Your four digits: " + ' '.join(digits))
-
+    """
+    
+    # checks if answer is correct nad acceptable
     def check(self, answer, digits):
         allowed = set('() +-*/\t'+''.join(digits))
         ok = all(ch in allowed for ch in answer) and \
@@ -68,7 +74,8 @@ class Game:
             except:
                 ok = False
         return ok
-
+    
+    # Checks if given digits can solve to 24
     def solve(self, digits):
         """\
         >>> for digits in '3246 4788 1111 123456 1127 3838'.split():
@@ -127,6 +134,7 @@ class Game:
         #print ("No solution found for:", ' '.join(digits))
         return '!'
 
+    """
     def main(self):
         trial = 0
         digits = self.choose4()
@@ -170,3 +178,4 @@ class Game:
 
 g = Game()
 g.main()
+"""
