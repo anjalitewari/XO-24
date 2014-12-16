@@ -6,12 +6,16 @@ class IcnTextBox(IcnBasic):
 	@staticmethod 
 	def setFont(font):
 		IcnTextBox.FONT =  font
+		
+	def setOwnFont(s,font):
+		s.font = font
 
 	def __init__(s,x,y,w,h, content,color = (255,255,255) ):
 		IcnBasic.__init__(s,x,y,w,h)
 		s.posInit = (x,y)
-		s.content = str(content)
+		s.content = content
 		s.setContent(content,color)
+		s.width = w
 
 	def helperDraw(me, screen):
 		rect = screen.blit(me.mySurface,me.pos)

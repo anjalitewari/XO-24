@@ -3,6 +3,7 @@ import	random,	HelperVec2
 #buttons
 from	KButton	import	KButton
 from	IcnBasic	import	IcnBasic
+from	IcnTextBox import IcnTextBox
 from 	GameButton import	GameButton
 from 	OperatorButton import	OperatorButton
 
@@ -87,9 +88,11 @@ class	SceneGame(SceneBasic):
 		# Array for operators
 		s.opBttns = [s.opbutton1, s.opbutton2, s.opbutton3, s.opbutton4]
 		
-		
 		# text box equations
-		s.equationLabel = IcnTextBox(center[0]-90, center[0]-10, 100, 60, "EQUATION", color=(255,255,255))
+		myfont = pygame.font.Font(os.path.join('assets', 'font','Roboto-Black.ttf') , 26)
+		s.bttn1Label.setFont(myfont)
+		s.equationLabel = IcnTextBox(center[0]-100, 70, 200, 60, "Equation Here")
+		
 
 	def	registerEvent_menu(s,e):	s.EVENT_MENU.append(e)
 
@@ -147,7 +150,6 @@ class	SceneGame(SceneBasic):
 		print "Draw NumButtons"
 		# only draw available buttons
 		for	numBttn,label	in	s.numBttnPairs:
-			print(numBttn)
 			if( numBttn.on == True ):
 				numBttn.draw(s.screen)
 				label.draw(s.screen)
