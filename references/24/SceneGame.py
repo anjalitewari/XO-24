@@ -91,7 +91,7 @@ class	SceneGame(SceneBasic):
 
 		textureMultbtn = TextureLoader.load( os.path.join('assets', 'game_icons', 'multiply.png'))
 		textureMultbtnPressed = TextureLoader.load(	os.path.join('assets',	'game_icons', 'multiply_pressed.png'))
-		s.opbutton3 = OperatorButton('*', center[1]+100, center[1]+120, 84, 82,	textureMultbtn, textureMultbtnPressed, True)
+		s.opbutton3 = OperatorButton('x', center[1]+100, center[1]+120, 84, 82,	textureMultbtn, textureMultbtnPressed, True)
 
 		textureDivbtn = TextureLoader.load(	os.path.join('assets',	'game_icons', 'divide.png'))
 		textureDivbtnPressed = TextureLoader.load( os.path.join('assets', 'game_icons', 'divide_pressed.png'))
@@ -164,8 +164,7 @@ class	SceneGame(SceneBasic):
 		s.screen.fill(s.backgroundColor)
 		s.bttnBack.draw(s.screen)
 
-		s.equationLabel.draw(s.screen)
-
+		s.updateEquation()
 		# only draw available buttons
 		s.drawNumButtons()
 		# draw operator
@@ -173,7 +172,18 @@ class	SceneGame(SceneBasic):
 
 		pygame.display.flip()
 		pass
+	
+	def updateDisplay(s):
+		s.EVENT_SCENE_START()
 
+	def updateEquation(s):
+		s.equation = '';
+		for value in s.CUR_EQ:
+			s.equation = s.equation + ' ' + value
+		
+		s.equationLabel.setContent(s.equation);
+		s.equationLabel.draw(s.screen)
+		
 	def drawNumButtons(s):
 		print "Draw NumButtons"
 		# only draw available buttons
@@ -185,6 +195,8 @@ class	SceneGame(SceneBasic):
 	def drawOperators(s):
 		print "Draw Operators"
 		for opBtn in s.opBttns:
+			if(opBtn.tapped):
+				opBtn.drawPressed()
 			opBtn.draw(s.screen)
 
 
@@ -234,7 +246,9 @@ class	SceneGame(SceneBasic):
 						else:
 							self.CUR_EQ.append(btn.getOperation())
 							self.OPERATER_HIT = True
+							btn.tapped = True
 							print self.CUR_EQ
+		self.updateDisplay()
 
 	def CLICK_NUMBUTTON(self):
 		print "in click_numbutton"
@@ -261,10 +275,11 @@ class	SceneGame(SceneBasic):
 								self.NUMS_REMOVED.append(self.NUMS_AVAILABLE[n])
 								self.CUR_EQ.append(cur)
 								print self.CUR_EQ
-
+								self.updateDisplay()
 								found = True
 								return found
 						print "cureq:", self.CUR_EQ
+						self.updateDisplay()
 						return found
 
 
@@ -288,6 +303,7 @@ class	SceneGame(SceneBasic):
 									self.CUR_EQ.remove(self.NUMS_AVAILABLE[m])
 									self.CUR_EQ.append(self.NUMS_AVAILABLE[m])
 									print "removed an available num"
+									self.updateDisplay()
 							return found
 
 						else:
@@ -301,7 +317,9 @@ class	SceneGame(SceneBasic):
 									self.SEC_NUM_HIT = True
 									print "removed an available num"
 									print self.CUR_EQ
+									self.updateDisplay()
 									return True
+							self.updateDisplay()
 							return found
 
 
