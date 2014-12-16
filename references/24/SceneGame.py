@@ -218,7 +218,7 @@ class	SceneGame(SceneBasic):
 			return	True
 		return	False
 
-	def CLICK_OPBUTTON():
+	def CLICK_OPBUTTON(self):
 		print "in click_opbutton"
 		pos = pygame.mouse.get_pos()
 		for i in range(0, len( self.opBttns  )) :
@@ -229,7 +229,7 @@ class	SceneGame(SceneBasic):
 				if(btn.select() or btn.select()):
 					print "selected"
 					if self.FIRST_NUM_HIT:
-						if self.SECOND_NUM_HIT:
+						if self.SEC_NUM_HIT:
 							pass
 						else:
 							self.CUR_EQ.append(btn.getOperation())
@@ -249,14 +249,14 @@ class	SceneGame(SceneBasic):
 						print "if not self.FIRST_NUM_HIT"
 						self.FIRST_NUM_HIT = True
 						found = False
-						for a in self.NUMS_AVAILABLE:
+						for n in range(0, len(self.NUMS_AVAILABLE)):
 							print self.NUMS_AVAILABLE
 							print len(self.NUMS_AVAILABLE)
-							if a[0].getValue() == btn[0].getValue(): # this will only pas if NUMS_AVAILABLE has more than 1 button
+							if self.NUMS_AVAILABLE[n][0].getValue() == btn[0].getValue(): # this will only pas if NUMS_AVAILABLE has more than 1 button
 								print "A.getValue() test passed!!s!!!!!!!!!!!!!!!!!!!!"
-								cur = a[0].getValue()
-								self.NUMS_AVAILABLE.remove(a)
-								self.NUMS_REMOVED.append(a)
+								cur = self.NUMS_AVAILABLE[n][0].getValue()
+								self.NUMS_AVAILABLE.remove(self.NUMS_AVAILABLE[n])
+								self.NUMS_REMOVED.append(self.NUMS_AVAILABLE[n])
 								self.CUR_EQ.append(cur)
 								print self.CUR_EQ
 
@@ -271,10 +271,11 @@ class	SceneGame(SceneBasic):
 						#replace first number with this number
 						if not self.OPERATER_HIT:
 							print "if not self.OPERATER_HIT:"
-							self.NUMS_AVAILABLE = self.NUMS_REMOVED.pop()
-							found = False
+							if not len(self.NUMS_REMOVED) == 0:
+								self.NUMS_AVAILABLE = self.NUMS_REMOVED.pop()
+								found = False
 
-							for a in self.NUMS_AVAILABLE:
+							for m in range(0,len(self.NUMS_AVAILABLE)/2):
 								"""
 								a[0].get# error because a contains no dataalue() - AttributeError: GameButton instance has no attribute '__getitem__'
 								error because a contains no data
@@ -313,14 +314,14 @@ class	SceneGame(SceneBasic):
 								or
 								[list for list in NUMS_AVAILABLE if a in list]
 								"""
-								print self.NUMS_AVAILABLE
+								print m
 								print len(self.NUMS_AVAILABLE)
-								if a[0].getValue() == btn[0].getValue():
+								if self.NUMS_AVAILABLE[m].getValue() == btn[0].getValue():
 									found = True
-									self.NUMS_AVAILABLE.remove(a)
-									self.NUMS_REMOVED.append(a)
-									self.CUR_EQ.remove(a)
-									self.CUR_EQ.append(a)
+									self.NUMS_AVAILABLE.remove(self.NUMS_AVAILABLE[m])
+									self.NUMS_REMOVED.append(self.NUMS_AVAILABLE[m])
+									self.CUR_EQ.remove(self.NUMS_AVAILABLE[m])
+									self.CUR_EQ.append(self.NUMS_AVAILABLE[m])
 									print "removed an available num"
 							return found
 
