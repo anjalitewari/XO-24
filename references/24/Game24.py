@@ -25,7 +25,7 @@ class Game24(object):
 		self.currentState = self.STATE_MENU
 		
 		#set font
-		self.myFont = pygame.font.Font(os.path.join('assets', 'font','Roboto-Black.ttf') , 24)
+		self.myFont = pygame.font.Font(os.path.join('assets', 'font','Roboto-Black.ttf') , 30)
 		IcnTextBox.setFont(self.myFont)
 		
 		# define the width and height of our display
