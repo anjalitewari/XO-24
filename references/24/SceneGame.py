@@ -233,6 +233,7 @@ class	SceneGame(SceneBasic):
 							pass
 						else:
 							self.CUR_EQ.append(btn.getOperation())
+							self.OPERATER_HIT = True
 							print self.CUR_EQ
 
 	def CLICK_NUMBUTTON(self):
