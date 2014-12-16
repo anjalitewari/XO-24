@@ -23,11 +23,11 @@ class Game24(object):
 		print "Game24::init()"
 		# start the game with the MENU scene
 		self.currentState = self.STATE_MENU
-		
+
 		#set font
 		self.myFont = pygame.font.Font(os.path.join('assets', 'font','Roboto-Black.ttf') , 30)
 		IcnTextBox.setFont(self.myFont)
-		
+
 		# define the width and height of our display
 		width  = pygame.display.Info().current_w
 		height = pygame.display.Info().current_h
@@ -37,7 +37,7 @@ class Game24(object):
 			screenSize = (800,600)
 		TextureLoader.screenSize =screenSize
 		self.screen = pygame.display.set_mode(screenSize, pygame.RESIZABLE) # change to FULLSCREEN for prod.
-		
+
 
 		# define our scenes and game clock
 		self.clock		= pygame.time.Clock()
@@ -57,16 +57,16 @@ class Game24(object):
 			self.STATE_HELP:  self.scnHelp
 		}
 		self.isRunning = True
-		
+
 		self.main()
-		
+
 
 	#Update the display and show the menu buttons
 	def update_display(self):
 		print "Game24::update_display()"
 		self.dicScenes[self.currentState].update_display()
 		pass
-		
+
 	# Main Game Loop
 	def main(self):
 		print "Game24::main()"
@@ -77,6 +77,15 @@ class Game24(object):
 	def loopUpdate(self):
 		print "Game24::loopUpdate()"
 		pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
+		#removed the loopUpdate so we can see the error
+		while self.isRunning:
+			eventStack = pygame.event.get();
+			for event in eventStack:
+				if event.type == pygame.QUIT:
+					self.EVENTHDR_QUIT()
+					return
+			self.dicScenes[self.currentState].listenForEvents(eventStack)
+		"""
 		try :
 			while self.isRunning:
 				eventStack = pygame.event.get();
@@ -88,8 +97,9 @@ class Game24(object):
 		except :
 			print "CRITICAL ERROR : RESTARTING LOOP loopUpdate"
 			self.loopUpdate()
+		"""
 		self.isRunning = False
-		
+
 	# sets the current state in Game24 to stateNew
 	# calls the run event of stateNew
 	def changeState(self, stateNew):
@@ -97,7 +107,7 @@ class Game24(object):
 		self.currentState = stateNew
 		self.dicScenes[stateNew].EVENT_SCENE_START()
 
-		
+
 	def registerEvents(self, sceneMenu,sceneGame=None, sceneHelp=None, sceneWin=None):
 		print "Game24::registerEvents()"
 		SceneBasic.registerEvent_sceneChangeStart(self.EVENTHDR_SCENE_CHANGE_START)
@@ -129,19 +139,19 @@ class Game24(object):
 		print "Game24::EVENTHDR_SCENE_START_HELP()"
 		self.scnHelp.EVENT_INITIALIZE()
 		self.changeState(self.STATE_HELP)
-  
+
 	# Event - Quits the game
 	def EVENTHDR_QUIT(self):
 		print "Game24::EVENTHDR_QUIT"
 		self.isRunning = False
 		pygame.quit()
 		#sys.exit()
-		pass	
-  
+		pass
+
 	# Event - Starts the Main Menu Scene
 	def EVENTHDR_SCENE_START_MENU(self):
 		print "Game24::EVENTHDR_SCENE_START_MENU()"
-		self.changeState(self.STATE_MENU)		
+		self.changeState(self.STATE_MENU)
 
 	# Event - Fired when a Scene Change begins
 	def EVENTHDR_SCENE_CHANGE_START(self):
