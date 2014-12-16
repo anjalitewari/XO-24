@@ -233,6 +233,7 @@ class	SceneGame(SceneBasic):
 							pass
 						else:
 							self.CUR_EQ.append(btn.getOperation())
+							print self.CUR_EQ
 
 	def CLICK_NUMBUTTON(self):
 		print "in click_numbutton"
@@ -273,7 +274,7 @@ class	SceneGame(SceneBasic):
 							print "if not self.OPERATER_HIT:"
 							if not len(self.NUMS_REMOVED) == 0:
 								self.NUMS_AVAILABLE = self.NUMS_REMOVED.pop()
-								found = False
+							found = False
 
 							for m in range(0,len(self.NUMS_AVAILABLE)/2):
 								"""
