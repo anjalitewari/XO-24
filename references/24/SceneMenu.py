@@ -9,7 +9,7 @@ class SceneMenu(SceneBasic):
 	def __init__(self,  resolution,	screen):
 		print("SceneMenu::init")
 		SceneBasic.__init__(self,resolution, screen)
-		# self.updateDisplay(self)
+		#self.updateDisplay(self)
 	
 	def registerEvent_play(s,e): s.EVENT_PLAY.append(e);pass
 	def registerEvent_help(s,e): s.EVENT_HELP.append(e);pass

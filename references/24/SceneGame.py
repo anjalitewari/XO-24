@@ -25,16 +25,19 @@ class	SceneGame(SceneBasic):
 	
 	STATE_NORMAL = 0
 	STATE_SOLVED = 1
+	rendered = 0
 
 	
 	def	__init__(self,	screenSize,	screen):
 		print("SceneGAME:	init");
-		SceneBasic.__init__(self,	screenSize,	screen)
+		SceneBasic.__init__(self,screenSize,screen)
 
-	def	initOthers(self,	screenSize):
+	def	initOthers(self,screenSize):
+		print("SceneGAME:	initOthers")
 		self.initImages(screenSize)	#load	background
 		self.myState = self.STATE_NORMAL
 		self.runGame()
+		self.rendered +=1
 
 	def	initImages(s,	screenSize):
 		#Use	this	to	load	assets
@@ -140,10 +143,9 @@ class	SceneGame(SceneBasic):
 			if(self.CLICK_NUMBUTTON()): 
 				print "back in event_click"
 				#self.doUpdateAnswer()
-			else:
-				if(self.CLICK_OPBUTTON()):
+			elif(self.CLICK_OPBUTTON()):
 					print "back in event_click"
-			if (self.CLICK_BUTTONS()):pass
+			elif (self.CLICK_BUTTONS()):pass
 			else : self.icnTextBottom.display("HooYa! You cannot click that.")
 		if(self.myState is self.STATE_SOLVED):
 			pass
@@ -185,8 +187,7 @@ class	SceneGame(SceneBasic):
 		for opBtn in s.opBttns:
 			opBtn.draw(s.screen)			
 
-	#def getCurrentAns(self):
-		
+	
 	
 	
 	def	CLICK_BUTTON_MENU(self):	self.helperRaiseEvent(self.EVENT_MENU)
@@ -208,7 +209,7 @@ class	SceneGame(SceneBasic):
 			[self.opbutton1, self.CLICK_OP_BUTTON],
 			[self.opbutton2, self.CLICK_OP_BUTTON],
 			[self.opbutton3, self.CLICK_OP_BUTTON],
-			[self.opbutton4, self.CLICK_OP_BUTTON]
+			[self.opbutton4, self.CLICK_OP_BUTTON],
 			
 		]
 		for	bttn,event	in	bttn_event:
@@ -246,33 +247,52 @@ class	SceneGame(SceneBasic):
 					if not self.FIRST_NUM_HIT:
 						print btn
 						self.FIRST_NUM_HIT = True
+						found = False
 						for a in self.NUMS_AVAILABLE:
+						
 							if a[0].getValue() == btn[0].getValue():
 								cur = a[0].getValue()
 								self.NUMS_AVAILABLE.remove(a)
 								self.NUMS_REMOVED.append(a)
-								print "removed"
 								self.CUR_EQ.append(cur)
-								print "removed an available num"
-						print self.CUR_EQ
+								print self.CUR_EQ
+
+								found = True
+								return found
+						print "cureq:", self.CUR_EQ
+						return found
+							
+						
 					else:
 						#replace first number with this number
-						if not self.OPERATOR_HIT:
+						if not self.OPERATER_HIT:
 							self.NUMS_AVAILABLE = self.NUMS_REMOVED.pop()
+							found = False
 							for a in self.NUMS_AVAILABLE:
 								if a[0].getValue() == btn[0].getValue():
+									found = True
 									self.NUMS_AVAILABLE.remove(a)
 									self.NUMS_REMOVED.append(a)
+									self.CUR_EQ.remove(a)
+									self.CUR_EQ.append(a)
 									print "removed an available num"
+							return found
 						
 						else:
+							found = False
 							for a in self.NUMS_AVAILABLE:
 								if a[0].getValue() == btn[0].getValue():
+									found = True
 									self.NUMS_AVAILABLE.remove(a)
 									self.NUMS_REMOVED.append(a)
+									self.CUR_EQ.append(a)
+									self.SEC_NUM_HIT = True
 									print "removed an available num"
+									return True
+							return found
 							
 							
+						
 						
 						
 					#if(self.getCurrentAns() <= 24):
@@ -305,12 +325,56 @@ class	SceneGame(SceneBasic):
 		print	"in	rungame"
 		#call	each	##	button	with	digits	and	display
 		self.chk	=	self.ans	=	False
-		#while	not	(self.chk	and	self.ans	==	24):	#	and	#ofbuttons	>	1	and	self.running?
+		while self.rendered > 1 and not(self.chk and self.ans == 24):	#	and	#ofbuttons	>	1	and	self.running?
 			#if	numberbutton.pressed	==	true:
+			if len(self.CUR_EQ) == 3:
+				self.ans = self.solveEquation()
+				self.SEC_NUM_HIT = False
+				#self.equationLabel.setContent(self.ans)
+				#self.equationLabel.draw(s.screen)	
 				
-		pygame.display.flip()
+		#pygame.display.flip()
 		pass
 		
-	
+	def solveEquation(self):
+		first = False
 		
-#runGame()
+		for a in range(0, len(self.CUR_EQ)):
+			if (self.CUR_EQ[a]) in ['1','2','3','4','5','6','7','8','9','0']:
+				if not first:
+					f = self.eqDict(self.CUR_EQ[a])
+					first = true
+				else:
+					s = self.eqDict(self.CUR_EQ[a])
+			else:
+				if self.CUR_EQ[a] in ['+','-','*','/']:
+				
+					if first:
+						s = self.CUR_EQ[a + 1]
+						if self.CUR_EQ[a] == '+':
+							return f + s
+						elif self.CUR_EQ[a] == '-':
+							return f - s
+						elif self.CUR_EQ[a] == '*':
+							return f * s
+						elif self.CUR_EQ[a] == '/':
+							return f / s
+
+
+	def eqDict(self, x):
+		return {
+			'1':1,
+			'2':2,
+			'3':3,
+			'4':4,
+			'5':5,
+			'6':6,
+			'7':7,
+			'8':8,
+			'9':9,
+			'0':0,
+			'+':'+',
+			'-':'-',
+			'*':'*',
+			'/':'/'
+		}[x]
