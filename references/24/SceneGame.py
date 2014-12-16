@@ -6,18 +6,26 @@ from	IcnBasic	import	IcnBasic
 from	IcnTextBox import IcnTextBox
 from 	GameButton import	GameButton
 from 	OperatorButton import	OperatorButton
+import test
+
 
 class	SceneGame(SceneBasic):
 	
 	# past number combinations (before move was made)
 	PAST_NUMS = []
-	# original combinations of numbers
+	# original combinations of numbers - holds button pair
 	NUMS_AVAILABLE = []
+	NUMS_REMOVED = []
+	CUR_EQ = []
 	
 	# marks if these requirements have been met
 	FIRST_NUM_HIT = False
 	OPERATER_HIT = False
 	SEC_NUM_HIT = False
+	
+	STATE_NORMAL = 0
+	STATE_SOLVED = 1
+
 	
 	def	__init__(self,	screenSize,	screen):
 		print("SceneGAME:	init");
@@ -25,7 +33,8 @@ class	SceneGame(SceneBasic):
 
 	def	initOthers(self,	screenSize):
 		self.initImages(screenSize)	#load	background
-		self.initButtons(screenSize)
+		self.myState = self.STATE_NORMAL
+		self.runGame()
 
 	def	initImages(s,	screenSize):
 		#Use	this	to	load	assets
@@ -98,11 +107,14 @@ class	SceneGame(SceneBasic):
 
 	def	registerEvent_numbutton(s,e):	s.EVENT_NUM_BUTTON.append(e)
 	
+	def	registerEvent_opbutton(s,e):	s.EVENT_OP_BUTTON.append(e)
+	
 	
 	def	initEvents(s):
 		print("SceneGAME:	initEvents");
 		s.EVENT_MENU = []
 		s.EVENT_NUM_BUTTON = []
+		s.EVENT_OP_BUTTON = []
 
 	def	initBackground(s,screen,resolution):
 		#set	background	here	with	texture	or	color
@@ -113,6 +125,8 @@ class	SceneGame(SceneBasic):
 		PAST_NUMS = []
 		# original combinations of numbers
 		NUMS_AVAILABLE = []
+		NUMS_REMOVED = []
+		CUR_EQ = []
 
 		# marks if these requirements have been met
 		FIRST_NUM_HIT = False
@@ -122,7 +136,19 @@ class	SceneGame(SceneBasic):
 	def	EVENT_CLICK(self,e):
 		print	"EVENT_CLICK"
 		self.CLICK_BUTTONS()		
-
+		if(self.myState is self.STATE_NORMAL):
+			if(self.CLICK_NUMBUTTON()): 
+				print "back in event_click"
+				#self.doUpdateAnswer()
+			else:
+				if(self.CLICK_OPBUTTON()):
+					print "back in event_click"
+			if (self.CLICK_BUTTONS()):pass
+			else : self.icnTextBottom.display("HooYa! You cannot click that.")
+		if(self.myState is self.STATE_SOLVED):
+			pass
+		
+		
 	def	EVENT_INITIALIZE(self):
 		#reset
 		print('reset');
@@ -157,15 +183,21 @@ class	SceneGame(SceneBasic):
 	def drawOperators(s):
 		print "Draw Operators"
 		for opBtn in s.opBttns:
-			opBtn.draw(s.screen)								   
+			opBtn.draw(s.screen)			
+
+	#def getCurrentAns(self):
+		
 	
 	
 	def	CLICK_BUTTON_MENU(self):	self.helperRaiseEvent(self.EVENT_MENU)
 
-	def	CLICK_NUMBER_BUTTON(self):	self.helperRaiseEvent(self.EVENT_NUM_BUTTON)	
+	def	CLICK_NUMBER_BUTTON(self):	self.helperRaiseEvent(self.EVENT_NUM_BUTTON)
+
+	def	CLICK_OP_BUTTON(self):	self.helperRaiseEvent(self.EVENT_OP_BUTTON)
 	
 	def	CLICK_BUTTONS(self):
 		#add	button	listeners	here
+		print "click_buttons"
 		mousePos	=	pygame.mouse.get_pos()
 		bttn_event	=	[
 			[self.bttnBack, self.CLICK_BUTTON_MENU],
@@ -173,6 +205,11 @@ class	SceneGame(SceneBasic):
 			[self.numberButton2, self.CLICK_NUMBER_BUTTON],
 			[self.numberButton3, self.CLICK_NUMBER_BUTTON],
 			[self.numberButton4, self.CLICK_NUMBER_BUTTON],
+			[self.opbutton1, self.CLICK_OP_BUTTON],
+			[self.opbutton2, self.CLICK_OP_BUTTON],
+			[self.opbutton3, self.CLICK_OP_BUTTON],
+			[self.opbutton4, self.CLICK_OP_BUTTON]
+			
 		]
 		for	bttn,event	in	bttn_event:
 			if(	not	bttn.isUnder(mousePos)):continue
@@ -180,17 +217,100 @@ class	SceneGame(SceneBasic):
 			return	True
 		return	False
 
-def	runGame():
-	self.digits	=	test.choose4()	#available	buttons	-	only	add	or	delete	in	run
-	#call initbutton and update values
-	self.equation	=	[]	#	contains	
-	#listen for events 
-	print	"in	rungame"
-	#call	each	##	button	with	digits	and	display
-	self.chk	=	self.ans	=	False
-	#while	not	(self.chk	and	self.ans	==	24):	#	and	#ofbuttons	>	1	and	self.running?
-		#if	numberbutton.pressed	==	true:
-			
-			
+	def CLICK_OPBUTTON():
+		print "in click_opbutton"
+		pos = pygame.mouse.get_pos()
+		for i in range(0, len( self.opBttns  )) :
+			btn = self.opBttns[i]
+			#choice = self.questionChoices[i]
+			if(btn.isUnder(pos) or btn.isUnder(pos)):
+				print "isunder"
+				if(btn.select() or btn.select()): 
+					print "selected"
+					if self.FIRST_NUM_HIT:
+						if self.SECOND_NUM_HIT:
+							pass
+						else:
+							self.CUR_EQ.append(btn.getOperation())
+		
+	def CLICK_NUMBUTTON(self):
+		print "in click_numbutton"
+		pos = pygame.mouse.get_pos()
+		for i in range(0, len( self.numBttnPairs  )) :
+			btn = self.numBttnPairs[i]
+			#choice = self.questionChoices[i]
+			if(btn[0].isUnder(pos) or btn[1].isUnder(pos)):
+				print "isunder"
+				if(btn[0].select() or btn[1].select()): 
+					print "selected"
+					if not self.FIRST_NUM_HIT:
+						print btn
+						self.FIRST_NUM_HIT = True
+						for a in self.NUMS_AVAILABLE:
+							if a[0].getValue() == btn[0].getValue():
+								cur = a[0].getValue()
+								self.NUMS_AVAILABLE.remove(a)
+								self.NUMS_REMOVED.append(a)
+								print "removed"
+								self.CUR_EQ.append(cur)
+								print "removed an available num"
+						print self.CUR_EQ
+					else:
+						#replace first number with this number
+						if not self.OPERATOR_HIT:
+							self.NUMS_AVAILABLE = self.NUMS_REMOVED.pop()
+							for a in self.NUMS_AVAILABLE:
+								if a[0].getValue() == btn[0].getValue():
+									self.NUMS_AVAILABLE.remove(a)
+									self.NUMS_REMOVED.append(a)
+									print "removed an available num"
+						
+						else:
+							for a in self.NUMS_AVAILABLE:
+								if a[0].getValue() == btn[0].getValue():
+									self.NUMS_AVAILABLE.remove(a)
+									self.NUMS_REMOVED.append(a)
+									print "removed an available num"
+							
+							
+						
+						
+					#if(self.getCurrentAns() <= 24):
+						#can process 
+						
+					#btn[0].setSelect(False)
+					#btn[1].setContent("")
+					return True
 
+				return True				
+		return False
+		
+	def	runGame(self):
+		self.initButtons((800,600))	#screenSize
+		game =	test.Game()
+		self.digits	= game.choose4()
+		print self.digits
+		i = 0
+		for button in self.numBttnPairs:
+			button[0].setValue(self.digits[i])
+			button[1].setContent(button[0].getValue(),color=(252,90,90))
+			i += 1
+			self.NUMS_AVAILABLE.append(button)
+			
+			#button[0].on = True
+		#self.drawNumButtons()
+		#call initbutton and update values
+		self.equation	=	[]	#	contains	
+		#listen for events 
+		print	"in	rungame"
+		#call	each	##	button	with	digits	and	display
+		self.chk	=	self.ans	=	False
+		#while	not	(self.chk	and	self.ans	==	24):	#	and	#ofbuttons	>	1	and	self.running?
+			#if	numberbutton.pressed	==	true:
+				
+		pygame.display.flip()
+		pass
+		
+	
+		
 #runGame()
