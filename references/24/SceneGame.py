@@ -278,44 +278,7 @@ class	SceneGame(SceneBasic):
 							found = False
 
 							for m in range(0,len(self.NUMS_AVAILABLE)/2):
-								"""
-								a[0].get# error because a contains no dataalue() - AttributeError: GameButton instance has no attribute '__getitem__'
-								error because a contains no data
-
-								print "NUMS_AVAILABLE"
-								print self.NUMS_AVAILABLE
-								print self.NUMS_AVAILABLE[0]
-								print self.NUMS_AVAILABLE[0].getValue()
-								print "This is how cool kids do it"
-								print btn
-								print btn[0]
-								print btn[0].getValue()
-								print "now PRINT THE FUCKING a"
-								print self.NUMS_AVAILABLE
-								print a
-								#print a[0]
-								#print a[0].getValue()
-								print "~~~~~~~~~~~~~~~~~How about this"
-								print a.getValue()
-
-								When NUMS_AVAILABLE contains only 1 button (need to verify)
-								a in NUMS_AVAILABLE means NUMS_AVAILABLE[n]
-								NUMS_AVAILABLE[0] = a
-								NUMS_AVAILABLE[0].getValue() = a.getValue()
-								Therefore a[0].getValue() is nothing (no wonder)
-
-								Cannot fix this by just changing a[0] to a
-								Need to change the scope of NUMS_AVAILABLE
-								right now:
-								NUMS_AVAILABLE[0] = first half of btn
-								NUMS_AVAILABLE[1] = second half of btn
-								which is bad
-
-								possible solution:
-								any(a in list for list in NUMS_AVAILABLE)
-								or
-								[list for list in NUMS_AVAILABLE if a in list]
-								"""
+								
 								print m
 								print len(self.NUMS_AVAILABLE)
 								if self.NUMS_AVAILABLE[m].getValue() == btn[0].getValue():
@@ -334,9 +297,10 @@ class	SceneGame(SceneBasic):
 									found = True
 									self.NUMS_AVAILABLE.remove(a)
 									self.NUMS_REMOVED.append(a)
-									self.CUR_EQ.append(a)
+									self.CUR_EQ.append(a[0].getValue())
 									self.SEC_NUM_HIT = True
 									print "removed an available num"
+									print self.CUR_EQ
 									return True
 							return found
 
