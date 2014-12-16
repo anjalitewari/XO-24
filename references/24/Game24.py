@@ -135,7 +135,7 @@ class Game24(object):
 		print "Game24::EVENTHDR_QUIT"
 		self.isRunning = False
 		pygame.quit()
-		sys.exit()
+		#sys.exit()
 		pass	
   
 	# Event - Starts the Main Menu Scene
