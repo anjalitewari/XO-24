@@ -3,7 +3,8 @@ import	random,	HelperVec2
 #buttons
 from	KButton	import	KButton
 from	IcnBasic	import	IcnBasic
-from GameButton import	GameButton
+from 	GameButton import	GameButton
+from 	OperatorButton import	OperatorButton
 
 class	SceneGame(SceneBasic):
 	
@@ -63,12 +64,32 @@ class	SceneGame(SceneBasic):
 			[s.numberButton1, s.bttn1Label],
 			[s.numberButton2, s.bttn2Label],
 			[s.numberButton3, s.bttn3Label],
-			[s.numberButton4, s.bttn4Label]
+			[s.numberButton4, s.bttn4Label],
 		]
 		
-		
 		# Operators
+		textureAddbtn =	TextureLoader.load( os.path.join('assets', 'game_icons', 'add.png'))
+		textureAddbtnPressed = TextureLoader.load( os.path.join('assets', 'game_icons', 'add_pressed.png'))
+		s.opbutton1 = OperatorButton('+', center[1]-80, center[1]+120, 84, 82,	textureAddbtn, textureAddbtnPressed, True)
+													   
+		textureSubbtn = TextureLoader.load(	os.path.join('assets', 'game_icons', 'subtract.png'))
+		textureSubbtnPressed = TextureLoader.load(	os.path.join('assets', 'game_icons', 'subtract_pressed.png'))
+		s.opbutton2 = OperatorButton('-', center[1]+10, center[1]+120, 84, 82,	textureSubbtn, textureSubbtnPressed,True)
+													   
+		textureMultbtn = TextureLoader.load( os.path.join('assets', 'game_icons', 'multiply.png'))
+		textureMultbtnPressed = TextureLoader.load(	os.path.join('assets',	'game_icons', 'multiply_pressed.png'))
+		s.opbutton3 = OperatorButton('*', center[1]+100, center[1]+120, 84, 82,	textureMultbtn, textureMultbtnPressed, True)
+													   
+		textureDivbtn = TextureLoader.load(	os.path.join('assets',	'game_icons', 'divide.png'))
+		textureDivbtnPressed = TextureLoader.load( os.path.join('assets', 'game_icons', 'divide_pressed.png'))
+		s.opbutton4 = OperatorButton('/', center[1]+190, center[1]+120, 84, 82,	textureDivbtn, textureDivbtnPressed, True)
 		
+		# Array for operators
+		s.opBttns = [s.opbutton1, s.opbutton2, s.opbutton3, s.opbutton4]
+		
+		
+		# text box equations
+		s.equationLabel = IcnTextBox(center[0]-90, center[0]-10, 100, 60, "EQUATION", color=(255,255,255))
 
 	def	registerEvent_menu(s,e):	s.EVENT_MENU.append(e)
 
@@ -112,8 +133,12 @@ class	SceneGame(SceneBasic):
 		s.screen.fill(s.backgroundColor)
 		s.bttnBack.draw(s.screen)
 		
+		s.equationLabel.draw(s.screen)
+		
 		# only draw available buttons
 		s.drawNumButtons()
+		# draw operator
+		s.drawOperators()
 		
 		pygame.display.flip()
 		pass
@@ -126,6 +151,11 @@ class	SceneGame(SceneBasic):
 			if( numBttn.on == True ):
 				numBttn.draw(s.screen)
 				label.draw(s.screen)
+	
+	def drawOperators(s):
+		print "Draw Operators"
+		for opBtn in s.opBttns:
+			opBtn.draw(s.screen)								   
 	
 	
 	def	CLICK_BUTTON_MENU(self):	self.helperRaiseEvent(self.EVENT_MENU)
